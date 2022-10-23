@@ -11,11 +11,7 @@ public class Vehiculo {
     /**
      * * Constructores
      */
-    public Vehiculo() {
-        int index = Vehiculo.posAñadir;
-        Vehiculo.vehiculos[index] = this;
-        Vehiculo.posAñadir++;
-    }
+    public Vehiculo() {}
 
     public Vehiculo(int mo, String ma, double va, String co) {
         this.modelo = mo;

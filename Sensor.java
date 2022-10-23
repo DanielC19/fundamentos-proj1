@@ -8,13 +8,8 @@ public class Sensor {
 
     /**
      * * Constructor vacío
-     * Solo añade sensor vacío a la lista de sensores
      */
-    public Sensor() {
-        int index = Sensor.posAñadir;
-        Sensor.sensores[index] = this;
-        Sensor.posAñadir++;
-    }
+    public Sensor() {}
 
     /**
      * * Constructor con parámetros
