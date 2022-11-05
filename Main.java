@@ -21,8 +21,8 @@ public class Main {
             System.out.println("2: Mostrará la información de todos los vehículos");
             System.out.println("3: Mostrará la cantidad total de vehículos actualmente");
             System.out.println("4: Mostrará la información de los vehículos cuyo color sea verde");
-            System.out.println("5: Mostrará la información de los vehículos cuyo modelo esté entre los años 2000-2021");
-            System.out.println("6: Creará un nuevo objeto Sensor si la cantidad de sensores actuales es menor a 8");
+            System.out.println("5: Mostrará la información del vehículo que selecciones con su ID");
+            System.out.println("6: Selecciona un vehículo y crea un sensor para él");
             System.out.println("7: Mostrará la información de todos los sensores");
             System.out.println("8: Mostrará la cantidad de sensores actualmente");
             System.out.println("9: Mostrará la información de todos los sensores cuyo tipo sea temperatura");
