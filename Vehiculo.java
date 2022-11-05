@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Vehiculo {
     // Estos son los atributos de nuestra clase de clase Vehiculo
-    public static Vehiculo[] vehiculos = new Vehiculo[10];
-    public static int tamano = 10;
-    public static int posAñadir = 0;
+    public static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
+    public static int idActual = 1;
+    private int id;
     private int modelo;
+    private ArrayList<Sensor> sensores = new ArrayList<>(); 
     private String marca;
     private double valorComercial;
     private String color;
@@ -11,17 +14,22 @@ public class Vehiculo {
     /**
      * * Constructores
      */
-    public Vehiculo() {}
+    public Vehiculo() {
+        this.id = Vehiculo.idActual;
+        Vehiculo.idActual++;
+
+        Vehiculo.vehiculos.add(this);
+    }
 
     public Vehiculo(int mo, String ma, double va, String co) {
         this.modelo = mo;
         this.marca = ma;
         this.valorComercial = va;
         this.color = co;
-
-        int index = Vehiculo.posAñadir;
-        Vehiculo.vehiculos[index] = this;
-        Vehiculo.posAñadir++;
+        this.id = Vehiculo.idActual;
+        
+        Vehiculo.idActual++;
+        Vehiculo.vehiculos.add(this);
     }
 
     public Vehiculo(int mo, String ma, double va) {
@@ -34,51 +42,12 @@ public class Vehiculo {
      * @return String
      */
     public String getInfo() {
-        return "Vehiculo de marca: " + this.marca + ", con modelo: " + this.modelo + ", color: " + this.color
+        String str = "Vehiculo de marca: " + this.marca + "con id de:" + this.id + ", con modelo: " + this.modelo + ", color: " + this.color
                 + " y con valor: " + this.valorComercial;
-    }
-
-    /**
-     * * Concatena la info de todos los vehículos verdes
-     * 
-     * @return String
-     */
-    public static String toStringVerdes() {
-        String str = "";
-        boolean existe = false;
-        for (int i = 0; i < Vehiculo.posAñadir; i++) {
-            if (Vehiculo.vehiculos[i].color.toLowerCase().equals("verde")) {
-                existe = true;
-                str += Vehiculo.vehiculos[i].getInfo() + "\n";
-            }
+        for (Sensor sensor : this.sensores) {
+            str += sensor.getInfo() + "\n";
         }
-        if (existe) {
-            return str;
-        } else {
-            return "No hay vehículos para mostrar";
-        }
-    }
-
-    /**
-     * * Identifica los vehiculos cuyos modelos estén dentro del rango de años
-     * 2000-2021
-     * 
-     * @return String
-     */
-    public static String toStringModelo() {
-        String str = "";
-        boolean existe = false;
-        for (int i = 0; i < Vehiculo.posAñadir; i++) {
-            if (Vehiculo.vehiculos[i].modelo >= 2000 && Vehiculo.vehiculos[i].modelo < 2022) {
-                existe = true;
-                str += Vehiculo.vehiculos[i].getInfo() + "\n";
-            }
-        }
-        if (existe) {
-            return str;
-        } else {
-            return "No hay vehículos para mostrar";
-        }
+        return str;
     }
 
     /**
@@ -89,9 +58,30 @@ public class Vehiculo {
     public static String toStringVehiculos() {
         String str = "";
         boolean existe = false;
-        for (int i = 0; i < Vehiculo.posAñadir; i++) {
+        for (Vehiculo vehiculos : Vehiculo.vehiculos){
             existe = true;
-            str += Vehiculo.vehiculos[i].getInfo() + "\n";
+            str += vehiculos.getInfo() + "\n";
+        }
+        if (!existe) {
+            return "No existen vehículos creados hasta el momento compañero.";
+        }
+        return str;
+ 
+    }
+    
+    /**
+     * * Concatena la info de todos los vehículos verdes
+     * 
+     * @return String
+     */
+    public static String toStringVerdes() {
+        String str = "";
+        boolean existe = false;
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.color.toLowerCase().equals("verde")) {
+                existe = true;
+                str += vehiculo.getInfo() + "\n";
+            }
         }
         if (existe) {
             return str;
@@ -100,13 +90,31 @@ public class Vehiculo {
         }
     }
 
+    public String findById(int id) {
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getId() == id) {
+                return vehiculo.getInfo();
+            }
+        }
+        return "No hay vehículos registrados con ese ID";
+    }
+
     /**
-     * * Retorna la cantidad de vehículos registrados
+     * * Retorna la cantidad de sensores del objeto
      * 
      * @return Integer
      */
-    public static int cantidadVehiculos() {
-        return Vehiculo.posAñadir;
+    public int cantidadSensores() {
+        return this.sensores.size();
+    }
+
+    /**
+     * * Permite añadir sensores
+     *
+     * @param Sensor
+     */
+    public void anadirSensor(Sensor s){
+        this.sensores.add(s);
     }
 
     /**
@@ -126,6 +134,22 @@ public class Vehiculo {
 
     public void setColor(String col) {
         this.color = col;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public void setSensores(ArrayList<Sensor> sensores) {
+        this.sensores = sensores;
+    }
+    
+    public ArrayList<Sensor> getSensores() {
+        return sensores;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public int getModelo() {
