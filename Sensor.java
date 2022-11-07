@@ -1,8 +1,8 @@
-public class Sensor extends {
+public class Sensor {
 
     private String tipo;
     private double valor;
-    
+    private Vehiculo vehiculo;
     /**
      * * Constructor vacío
      */
